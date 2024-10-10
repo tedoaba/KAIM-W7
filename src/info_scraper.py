@@ -6,9 +6,9 @@ from telethon.tl.types import PeerChannel
 import asyncio
 
 # Step 1: Define Telegram API credentials
-API_ID = '22245208'  # Get from https://my.telegram.org
-API_HASH = '97e00dd8cc0c9e215c5226c2f6d34be2'  # Get from https://my.telegram.org
-PHONE_NUMBER = '+251943165195'
+API_ID = ''  
+API_HASH = ''  
+PHONE_NUMBER = ''
 # Step 2: Create a function to connect to the Telegram client
 client = TelegramClient('session_name', API_ID, API_HASH)
 
