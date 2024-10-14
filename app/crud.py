@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from models import TelegramMessage, ObjectDetection
-from schemas import TelegramMessageCreate, ObjectDetectionCreate
+from app.models import TelegramMessage, ObjectDetection
+from app.schemas import TelegramMessageCreate, ObjectDetectionCreate
 
 def create_telegram_message(db: Session, message: TelegramMessageCreate):
     db_message = TelegramMessage(channel=message.channel, message_content=message.message_content)

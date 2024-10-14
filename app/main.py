@@ -1,10 +1,10 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from database import get_db
-import telegram_scraper
-import crud
-import yolo_object_detection
-from schemas import TelegramMessageCreate, ObjectDetectionCreate
+from app.database import get_db
+import app.telegram_scraper
+import app.crud
+import app.yolo_object_detection
+from app.schemas import TelegramMessageCreate, ObjectDetectionCreate
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -16,9 +16,14 @@ def read_root():
         "message": "Welcome to the Ethiopian Medical Business Data Scraper and Object Detection API!"
     }
 
-# Endpoint to scrape Telegram channel
+from pydantic import BaseModel
+
+class TelegramChannel(BaseModel):
+    channel: str
+
 @app.post("/scrape_telegram/")
-async def scrape_telegram(channel: str, db: Session = Depends(get_db)):
+async def scrape_telegram(channel_data: TelegramChannel, db: Session = Depends(get_db)):
+    channel = channel_data.channel
     messages = await telegram_scraper.scrape_telegram_channel(channel)
     for message in messages:
         crud.create_telegram_message(db, TelegramMessageCreate(**message))

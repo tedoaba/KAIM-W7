@@ -2,13 +2,14 @@ import torch
 import cv2
 import sys
 import os
+from pathlib import Path
 
-# Add the YOLOv5 directory to the Python path
-yolov5_dir = os.path.join(os.path.dirname(__file__), "yolov5")
-sys.path.append(yolov5_dir)
+# Import the necessary modules
+from yolov5.models.common import AutoShape, DetectMultiBackend
 
 # Load the YOLOv5 model
-model = torch.hub.load('ultralytics/yolov5', 'yolov5s', force_reload=True)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model = DetectMultiBackend('../yolov5/yolov5s.pt', device=device)
 
 
 def detect_objects(image_path):
