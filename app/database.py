@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # Define the database URL (adjust it for your database)
-DATABASE_URL = "postgresql://postgres:postgres21@localhost/postgres"
+DATABASE_URL = "postgresql://postgres:postgres21@localhost/image_storage"
 
 # Set up SQLAlchemy engine and session
 engine = create_engine(DATABASE_URL)
