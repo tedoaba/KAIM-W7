@@ -5,3 +5,7 @@ seaborn
 sqlalchemy
 databases
 psycopg2
+scikit-learn
+scipy
+telethon
+
