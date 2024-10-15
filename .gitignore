@@ -8,6 +8,7 @@ __pycache__/
 
 # Environment
 .week7/
+.env
 
 # Data
 

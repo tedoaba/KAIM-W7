@@ -1,10 +1,23 @@
 from telethon import TelegramClient, sync
+from dotenv import load_dotenv
+import logging
 import os
+import json
 
-# Your API ID and API Hash (from my.telegram.org)
+load_dotenv('.env')
 
-api_id = ''
-api_hash = ''
+# Set up logging
+logging.basicConfig(
+    filename='scraping.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+# Load environment variables once
+load_dotenv('.env')
+api_id = os.getenv('API_ID')
+api_hash = os.getenv('API_HASH')
+phone = os.getenv('PHONE_NUMBER')
 
 # Define the client (replace 'session_name' with any name)
 client = TelegramClient('session_name', api_id, api_hash)

@@ -4,20 +4,35 @@ from telethon.errors import SessionPasswordNeededError
 from telethon.tl.functions.messages import GetHistoryRequest
 from telethon.tl.types import PeerChannel
 import asyncio
+from dotenv import load_dotenv
+import logging
+import os
+import json
 
-# Step 1: Define Telegram API credentials
-API_ID = ''
-API_HASH = ''
-PHONE_NUMBER = ''
+load_dotenv('.env')
+
+# Set up logging
+logging.basicConfig(
+    filename='scraping.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+# Load environment variables once
+load_dotenv('.env')
+api_id = os.getenv('API_ID')
+api_hash = os.getenv('API_HASH')
+phone = os.getenv('PHONE_NUMBER')
+
 # Step 2: Create a function to connect to the Telegram client
-client = TelegramClient('session_name', API_ID, API_HASH)
+client = TelegramClient('session_name', api_id, api_hash)
 
 async def connect_telegram():
-    await client.start(PHONE_NUMBER)
+    await client.start(phone)
     if not await client.is_user_authorized():
         try:
-            await client.send_code_request(PHONE_NUMBER)
-            await client.sign_in(PHONE_NUMBER, input('Enter the code: '))
+            await client.send_code_request(phone)
+            await client.sign_in(phone, input('Enter the code: '))
         except SessionPasswordNeededError:
             await client.sign_in(password=input('Enter your 2FA password: '))
 

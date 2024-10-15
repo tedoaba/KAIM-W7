@@ -10,5 +10,5 @@ sqlalchemy
 databases
 scikit-learn
 scipy
-
+python-dotenv
 
