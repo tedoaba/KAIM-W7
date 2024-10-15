@@ -7,4 +7,4 @@ dbt-postgres
 psycopg2
 telethon
 sqlalchemy
-
+jupyter
