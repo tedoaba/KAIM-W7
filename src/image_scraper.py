@@ -8,7 +8,7 @@ load_dotenv('.env')
 
 # Set up logging
 logging.basicConfig(
-    filename='scraping.log',
+    filename='../logs/image_scraping.log',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )

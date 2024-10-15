@@ -5,11 +5,10 @@ from dotenv import load_dotenv
 
 # Set up logging
 logging.basicConfig(
-    filename='scraping.log',
+    filename='logs/api_telegram_scraping.log',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
-
 
 # Load environment variables once
 load_dotenv('.env')

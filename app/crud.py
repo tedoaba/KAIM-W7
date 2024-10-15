@@ -10,8 +10,12 @@ def create_telegram_message(db: Session, message: TelegramMessageCreate):
     return db_message
 
 def create_object_detection(db: Session, detection: ObjectDetectionCreate):
-    db_detection = ObjectDetection(image_url=detection.image_url, bounding_box=detection.bounding_box,
-                                   confidence=detection.confidence, label=detection.label)
+    db_detection = ObjectDetection(
+        image_url=detection.image_url, 
+        bounding_box=detection.bounding_box,
+        confidence=detection.confidence, 
+        label=detection.label
+    )
     db.add(db_detection)
     db.commit()
     db.refresh(db_detection)
