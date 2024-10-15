@@ -1,8 +1,8 @@
 from telethon import TelegramClient
 import logging
 
-api_id = 'YOUR_API_ID'
-api_hash = 'YOUR_API_HASH'
+api_id = ''
+api_hash = ''
 
 
 client = TelegramClient('session_name', api_id, api_hash)
