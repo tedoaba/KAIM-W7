@@ -10,6 +10,7 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
+
 # Load environment variables once
 load_dotenv('.env')
 api_id = os.getenv('API_ID')
@@ -22,7 +23,9 @@ async def scrape_telegram_channel(channel):
     async with client:
         async for message in client.iter_messages(channel):
             messages.append({
-                'channel': channel,
-                'message_content': message.text
-            })
+            'message_id': message.id,
+            'date': message.date,
+            'text': message.message,
+            'sender_id': message.sender_id
+        })
     return messages

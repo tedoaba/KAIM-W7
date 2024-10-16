@@ -1,8 +1,11 @@
 from pydantic import BaseModel
+from datetime import datetime  # Import datetime for DateTime type
 
 class TelegramMessageCreate(BaseModel):
-    channel: str
-    message_content: str
+    message_id: int
+    date: datetime  # Change DateTime to datetime
+    text: str
+    sender_id: int  # Changed this to int for consistency
 
 class ObjectDetectionCreate(BaseModel):
     image_url: str

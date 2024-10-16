@@ -1,12 +1,14 @@
-from sqlalchemy import Column, Integer, String, Text
+from sqlalchemy import Column, Integer, String, Text, DateTime  # Add DateTime here
 from app.database import Base
 
 class TelegramMessage(Base):
     __tablename__ = "telegram_messages"
 
     id = Column(Integer, primary_key=True, index=True)
-    channel = Column(String, index=True)
-    message_content = Column(Text)
+    message_id = Column(Integer, index=True)
+    date = Column(DateTime, index=True)  # This line now works
+    text = Column(String, index=True)
+    sender_id = Column(Integer, index=True)
 
 class ObjectDetection(Base):
     __tablename__ = "object_detection"
