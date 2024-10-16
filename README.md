@@ -98,46 +98,46 @@ Here’s a high-level overview of the project’s structure:
 
 ```bash
 ├── app/
-│   ├── telegram_scraper.py     # Script for scraping Telegram data
-│   ├── utils.py                # Helper functions for scraping
-│   └── raw_data/               # Directory where raw data is temporarily stored
+│   ├── templates/   
+│   ├── crud.py               
+│   └── database.py
+│   ├── main.py
+│   ├── models.py                
+│   └── schemas.py
+│   ├── telegram_scraper.py     
+│   ├── yolo_object_detection.py                                  
 ├── data/
-│   ├── dbt_project/            # DBT models for data transformation
-│   └── cleaning_pipeline.py    # Script for running DBT data cleaning models
 ├── images/
-│   ├── detect.py               # Script for YOLO object detection
-│   └── images/                 # Scraped images for object detection           # Data
 ├── logs/
-│   ├── main.py                 # FastAPI app entry point
-│   ├── crud.py                 # CRUD operations for API
-│   ├── schemas.py              # Pydantic schemas for request/response validation
-│   └── database.py             # Database connection for FastAPI
-│   └── models.py               # SQLAlchemy models for the data warehouse
-│   └── database.py             
-├── medical_data/
-│   ├── telegram_scraper.py     # Script for scraping Telegram data
-│   ├── utils.py                # Helper functions for scraping
-│   └── raw_data/               # Directory where raw data is temporarily stored
+├── dbt_medical_data/
+│   ├── analaysis/     
+│   ├── macros              
+│   └── models/    
+│   ├── seeds/    
+│   ├── snapshots                
+│   └── tests/                          
 ├── notebooks/
-│   ├── dbt_project/            # DBT models for data transformation
-│   └── cleaning_pipeline.py    # Script for running DBT data cleaning models
+│   ├── telegram_scraper.py     
+│   ├── utils.py                
+│   └── raw_data/               
 ├── scripts/
-│   ├── detect.py               # Script for YOLO object detection
-│   └── images/                 # Scraped images for object detection           # Data
+│   ├── __init__.py     
+│   ├── main.py                
+│   └── dbt_setup.py        
 ├── src/
-│   ├── main.py                 # FastAPI app entry point
-│   ├── crud.py                 # CRUD operations for API
-│   ├── schemas.py              # Pydantic schemas for request/response validation
-│   └── database.py             # Database connection for FastAPI
-│   └── models.py               # SQLAlchemy models for the data warehouse
-│   └── database.py 
+│   ├── telegram_scraper.py     
+│   ├── utils.py                
+│   └── raw_data/               
 ├── tests/
-│   ├── telegram_scraper.py     # Script for scraping Telegram data
-│   ├── utils.py                # Helper functions for scraping
-│   └── raw_data/               # Directory where raw data is temporarily stored
+│   ├── __init__.py     
+│   ├── test_data_loader.py                              
 ├── yolov5/
-│   ├── dbt_project/            # DBT models for data transformation
-│   └── cleaning_pipeline.py
+│   ├── models/
+│   ├── runs/               
+│   └── utils/
+│   ├── detect.py     
+│   ├── export.py                
+│   └── yolov5.pt                             
 ├── .gitignore               
 ├── requirements.txt
 └── README.md                   #
@@ -176,7 +176,7 @@ The first step involves scraping textual and image data from public Telegram cha
 
    Execute the script:
    ```bash
-   python src/scraper.py
+   python src/message_scraper.py
    ```
 
 3. **Output**:
@@ -194,11 +194,11 @@ After scraping, the raw data is cleaned and transformed using **DBT** (Data Buil
    Install DBT and initialize a new DBT project:
    ```bash
    pip install dbt
-   dbt init medical_data
+   dbt init dtb_medical_data
    ```
 
 2. **Define DBT Models**:
-   - Define SQL models in the `medical_data/models/` directory for cleaning and transforming data.
+   - Define SQL models in the `dbt_medical_data/models/` directory for cleaning and transforming data.
    - Sample DBT model file:
      ```sql
      -- models/cleaned_telegram_data.sql
@@ -246,7 +246,7 @@ In this task, we perform **object detection** on the scraped images using **YOLO
    Run the YOLOv5 object detection script:
    ```bash
    cd yolov5
-   python detect.py --weights yolov5s.pt --img 640 --conf 0.5 --source data/images
+   python detect.py
    ```
 
 4. **Store Detection Results**:
@@ -289,7 +289,7 @@ The data warehouse stores all the cleaned, transformed, and enriched data, enabl
 3. **Migrate Database**:
    Initialize and migrate the database to create the tables:
    ```bash
-   python warehouse/database.py
+   python app/database.py
    ```
 
 ## FastAPI for Data Access
@@ -305,7 +305,7 @@ To expose the processed data via an API, **FastAPI** is used to create RESTful e
    ```
 
 2. **Create FastAPI Application**:
-   - Define routes in `fastapi_app/main.py`:
+   - Define routes in `app/main.py`:
      
 ```python
      from fastapi import FastAPI, Depends
