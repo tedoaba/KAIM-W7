@@ -1,6 +1,6 @@
-# KAIM Week 7 Challenges
+# Building a Data Warehouse to Store Data on Ethiopian Medical Business Data Scraped from Telegram Channels
 
-## Kara Solutions: Ethiopian Medical Business Data Warehouse Project
+## KAIM Week 7 Challenges
 
 ## Project Overview
 
